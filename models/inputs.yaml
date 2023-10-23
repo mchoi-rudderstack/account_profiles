@@ -4,8 +4,8 @@ inputs:
       table: DEMO_DB.ECOMM_DEMO.IDENTIFIES
     occurred_at_col: timestamp
     ids:
-      - select: "unit_id"
-        type: unit_id
+      - select: "user_id"
+        type: user_id
         entity: user
         to_default_stitcher: true
       - select: "anonymous_id"
