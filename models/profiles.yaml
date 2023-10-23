@@ -36,22 +36,6 @@ models:
           value: "{% if !(end_time|isnil) %} datediff(day, date({{column}}), date('{{end_time.Format(\"2006-01-02 15:04:05\")}}')) <={{number_of_days}} {% else %} datediff(day, date({{column}}), GETDATE()) <= {{number_of_days}} {% endif %}"
       vars:
         - entity_var:
-            name: units_viewed
-            from: inputs/rsIdentifies
-            select: first_value(units_viewed)
-            window:
-              order_by:
-                - timestamp desc
-            description: The number of units viewed in the last 30 days
-        - entity_var:
-            name: applications_submitted
-            from: inputs/rsIdentifies
-            select: first_value(applications_submitted)
-            window:
-              order_by:
-                - timestamp desc
-            description: Total number of applications submitted in the last 30 days
-        - entity_var:
             name: lease_signed_date
             from: inputs/rsIdentifies
             select: first_value(lease_signed_date)
@@ -60,21 +44,21 @@ models:
                 - timestamp desc
             description: The date when the user signed a lease
         - entity_var:
-            name: preferred_unit_type
+            name: unit_type
             from: inputs/rsIdentifies
-            select: first_value(preferred_unit_type)
+            select: first_value(unit_type)
             window:
               order_by:
                 - timestamp desc
-            description: Type of unit the user is searching for
+            description: Type of unit
         - entity_var:
-            name: preferred_amenities
+            name: available_amenities
             from: inputs/rsIdentifies
-            select: first_value(preferred_amenities)
+            select: first_value(available_amenities)
             window:
               order_by:
                 - timestamp desc
-            description: The amenities the user is searching for
+            description: The amenities available with the unit
         - entity_var:
             name: max_timestamp_cart_update
             select: max(timestamp)
@@ -411,11 +395,9 @@ models:
             from: models/rsItemsPurchasedEver
             description: The list of unique products bought by the user.
       features:
-        - units_viewed
-        - applications_submitted
         - lease_signed_date
-        - preferred_unit_type
-        - preferred_amenities
+        - unit_type
+        - available_amenities
         - days_since_account_creation
         - days_since_last_seen
         - highest_transaction_value
