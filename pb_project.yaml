@@ -15,7 +15,7 @@ entities:
   - name: user
     id_stitcher: models/ecomm_loyal_customers_stitcher
     id_types:
-      - unit_id
+      - user_id
       - anonymous_id
       - email
       - cart_token
@@ -25,7 +25,7 @@ entities:
       - session_main_id
       - session_id
 id_types:
-  - name: unit_id
+  - name: user_id
   - name: cart_token
   - name: anonymous_id
     filters:
