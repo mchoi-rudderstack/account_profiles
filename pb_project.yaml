@@ -12,10 +12,10 @@ model_folders:
   - models
 # Entities in this project and their ids.
 entities:
-  - name: user
+  - name: unit
     id_stitcher: models/ecomm_loyal_customers_stitcher
     id_types:
-      - user_id
+      - unit_id
       - anonymous_id
       - email
       - cart_token
@@ -25,7 +25,7 @@ entities:
       - session_main_id
       - session_id
 id_types:
-  - name: user_id
+  - name: unit_id
   - name: cart_token
   - name: anonymous_id
     filters:
