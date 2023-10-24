@@ -1,9 +1,9 @@
 models:
-  - name: ecomm_loyal_customers_stitcher
+  - name: renter_profiles_stitcher
     model_type: id_stitcher
     model_spec:
       validity_time: 24h # 1 day
-      entity_key: user
+      entity_key: unit
       edge_sources:
         - from: inputs/rsIdentifies
         - from: inputs/rsTracks
@@ -19,11 +19,11 @@ models:
       edge_sources:
         - from: inputs/rsPages
   # Remove the section below, if you don't want to generate a feature table
-  - name: ecomm_loyal_customers
+  - name: renter_profiles
     model_type: feature_table_model
     model_spec:
       validity_time: 24h # 1 day
-      entity_key: user
+      entity_key: unit
       macros:
         - name: macro_datediff
           inputs:
@@ -44,13 +44,18 @@ models:
                 - timestamp desc
             description: The ID of the leased unit
         - entity_var:
+            name: current_residents
+            from: inputs/rsIdentifies
+            select: array_agg(distinct email)
+            description: List of all current residents at this unit
+        - entity_var:
             name: lease_signed_date
             from: inputs/rsIdentifies
             select: first_value(lease_signed_date)
             window:
               order_by:
                 - timestamp desc
-            description: The date when the user signed a lease
+            description: The date when the unit signed a lease
         - entity_var:
             name: unit_type
             from: inputs/rsIdentifies
