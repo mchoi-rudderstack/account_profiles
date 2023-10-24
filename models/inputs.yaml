@@ -4,17 +4,17 @@ inputs:
       table: DEMO_DB.ECOMM_DEMO.IDENTIFIES
     occurred_at_col: timestamp
     ids:
-      - select: "user_id"
-        type: user_id
-        entity: user
+      - select: "unit_id"
+        type: unit_id
+        entity: unit
         to_default_stitcher: true
       - select: "anonymous_id"
         type: anonymous_id
-        entity: user
+        entity: unit
         to_default_stitcher: true
       - select: "lower(email)"
         type: email
-        entity: user
+        entity: unit
         to_default_stitcher: true
     source_metadata:
       role: shopify
@@ -24,13 +24,13 @@ inputs:
       table: DEMO_DB.ECOMM_DEMO.TRACKS
     occurred_at_col: timestamp
     ids:
-      - select: "user_id"
-        type: user_id
-        entity: user
+      - select: "unit_id"
+        type: unit_id
+        entity: unit
         to_default_stitcher: true
       - select: "anonymous_id"
         type: anonymous_id
-        entity: user
+        entity: unit
         to_default_stitcher: true
     source_metadata:
       role: shopify
@@ -40,17 +40,17 @@ inputs:
       table: DEMO_DB.ECOMM_DEMO.PAGES
     occurred_at_col: timestamp
     ids:
-      - select: "user_id"
-        type: user_id
-        entity: user
+      - select: "unit_id"
+        type: unit_id
+        entity: unit
         to_default_stitcher: true
       - select: "anonymous_id"
         type: anonymous_id
-        entity: user
+        entity: unit
         to_default_stitcher: true
       - select: "concat(coalesce(anonymous_id, 'null'), coalesce(to_char(context_session_id), 'null'))"
         type: session_id
-        entity: user
+        entity: unit
         to_default_stitcher: true
       - select: "concat(coalesce(anonymous_id, 'null'), coalesce(to_char(context_session_id), 'null'))"
         type: session_id
@@ -64,13 +64,13 @@ inputs:
       table: DEMO_DB.ECOMM_DEMO.ORDER_CREATED
     occurred_at_col: timestamp
     ids:
-      - select: "user_id"
-        type: user_id
-        entity: user
+      - select: "unit_id"
+        type: unit_id
+        entity: unit
         to_default_stitcher: true
       - select: "anonymous_id"
         type: anonymous_id
-        entity: user
+        entity: unit
         to_default_stitcher: true
     source_metadata:
       role: shopify
@@ -80,13 +80,13 @@ inputs:
       table: DEMO_DB.ECOMM_DEMO.ORDER_CANCELLED
     occurred_at_col: timestamp
     ids:
-      - select: "user_id"
-        type: user_id
-        entity: user
+      - select: "unit_id"
+        type: unit_id
+        entity: unit
         to_default_stitcher: true
       - select: "anonymous_id"
         type: anonymous_id
-        entity: user
+        entity: unit
         to_default_stitcher: true
     source_metadata:
       role: shopify
@@ -98,7 +98,7 @@ inputs:
     ids:
       - select: "anonymous_id"
         type: anonymous_id
-        entity: user
+        entity: unit
         to_default_stitcher: true
     source_metadata:
       role: shopify
@@ -108,13 +108,13 @@ inputs:
       table: DEMO_DB.ECOMM_DEMO.ORDER_UPDATED
     occurred_at_col: timestamp
     ids:
-      - select: "user_id"
-        type: user_id
-        entity: user
+      - select: "unit_id"
+        type: unit_id
+        entity: unit
         to_default_stitcher: true
       - select: "anonymous_id"
         type: anonymous_id
-        entity: user
+        entity: unit
         to_default_stitcher: true
     source_metadata:
       role: shopify
