@@ -6,6 +6,7 @@ models:
       entity_key: unit
       edge_sources:
         - from: inputs/rsIdentifies
+        - from: inputs/rsTicketsCreated
   # Remove the section below, if you don't want to generate a feature table
   - name: group_level_profiles
     model_type: feature_table_model
@@ -60,6 +61,11 @@ models:
               order_by:
                 - timestamp desc
             description: The amenities available with the unit
+        - entity_var:
+            name: total_tickets
+            select: count(*)
+            from: inputs/rsTicketsCreated
+            description: Total number of maintenance tickets submitted for the unit
       features:
         - current_residents
         - lease_signed_date
