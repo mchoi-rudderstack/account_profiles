@@ -409,6 +409,7 @@ models:
             description: The list of unique products bought by the user.
       features:
         - lease_signed_date
+        - current_residents
         - unit_type
         - available_amenities
         - days_since_account_creation
