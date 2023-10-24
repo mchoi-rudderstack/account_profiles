@@ -8,7 +8,7 @@ models:
         run_type: discrete
       single_sql: |
         {% with OrderCreated = this.DeRef("inputs/rsOrderCreated") %}
-          select t.value['sku'] as SKU,products,token,ANONYMOUS_ID,unit_ID,TIMESTAMP,order_number,cart_token
+          select t.value['sku'] as SKU,products,token,ANONYMOUS_ID,USER_ID,TIMESTAMP,order_number,cart_token
             from (select * from {{OrderCreated}} ), table(flatten(parse_json(products))) t where products is not null
         {% endwith %}
   - name: rsItemsPurchasedEverCte
@@ -38,8 +38,8 @@ models:
             WHERE  rn = 1
             {% endwith %}
       ids:
-        - select: "unit_id"
-          type: unit_id
+        - select: "user_id"
+          type: user_id
           entity: unit
           to_default_stitcher: true
         - select: "anonymous_id"
@@ -56,7 +56,7 @@ models:
       single_sql: "{% with OrderCreated = this.DeRef(\"inputs/rsOrderCreated\") OrderCancelled = this.DeRef(\"inputs/rsOrderCancelled\") OrderUpdated = this.DeRef(\"inputs/rsOrderUpdated\")%}
          select
              a.ANONYMOUS_ID,
-             a.unit_id,
+             a.user_id,
              a.total_price_usd,
              a.products,
              a.payment_details_credit_card_company,
@@ -65,7 +65,7 @@ models:
              a.cart_token,
              a.financial_status,
              b.anonymous_id as anonymous_id_order_cancelled,
-             b.unit_id as unit_id_order_cancelled ,
+             b.user_id as user_id_order_cancelled ,
              b.total_price_usd as total_price_usd_order_cancelled,
              b.order_number as order_number_order_cancelled,
              b.financial_status as financial_status_order_cancelled,
@@ -74,14 +74,14 @@ models:
              b.products as products_order_cancelled,
              c.fulfillment_status
          from {{OrderCreated}} a 
-         left join {{OrderCancelled}} b on a.unit_id = b.unit_id and a.order_number = b.order_number
-         left join {{OrderUpdated}} c on a.unit_id = c.unit_id and a.order_number = c.order_number
+         left join {{OrderCancelled}} b on a.user_id = b.user_id and a.order_number = b.order_number
+         left join {{OrderUpdated}} c on a.user_id = c.user_id and a.order_number = c.order_number
           
                 {% endwith %}
          "
       ids:
-        - select: "unit_id"
-          type: unit_id
+        - select: "user_id"
+          type: user_id
           entity: unit
           to_default_stitcher: true
         - select: "anonymous_id"
@@ -167,7 +167,7 @@ models:
           cli.TIMESTAMP,
           cli.TOKEN,
           oc.ANONYMOUS_ID as Order_Created_Anonymous_ID,
-          oc.unit_ID,
+          oc.user_ID,
           oc.TOTAL_PRICE_USD,
           oc.PRODUCTS as order_created_products,
           oc.PAYMENT_DETAILS_CREDIT_CARD_COMPANY,
@@ -180,8 +180,8 @@ models:
           left outer join {{OrderCreated}} oc on cli.token = oc.cart_token
         {% endwith %}
       ids:
-        - select: "unit_id"
-          type: unit_id
+        - select: "user_id"
+          type: user_id
           entity: unit
           to_default_stitcher: true
         - select: "anonymous_id"
