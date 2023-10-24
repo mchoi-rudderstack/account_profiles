@@ -1,5 +1,5 @@
 models:
-  - name: renter_profiles_stitcher
+  - name: ecomm_loyal_customers_stitcher
     model_type: id_stitcher
     model_spec:
       validity_time: 24h # 1 day
@@ -19,7 +19,7 @@ models:
       edge_sources:
         - from: inputs/rsPages
   # Remove the section below, if you don't want to generate a feature table
-  - name: renter_profiles
+  - name: ecomm_loyal_customers
     model_type: feature_table_model
     model_spec:
       validity_time: 24h # 1 day
