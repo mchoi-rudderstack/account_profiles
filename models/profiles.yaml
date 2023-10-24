@@ -71,3 +71,4 @@ models:
         - lease_signed_date
         - unit_type
         - available_amenities
+        - total_tickets
