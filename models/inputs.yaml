@@ -51,3 +51,19 @@ inputs:
     source_metadata:
       role: shopify
       category: webhook
+  - name: rsTicketsCreated
+    app_defaults:
+      table: DEMO_DB.ECOMM_DEMO.ORDER_CREATED
+    occurred_at_col: timestamp
+    ids:
+      - select: "user_id"
+        type: unit_id
+        entity: unit
+        to_default_stitcher: true
+      - select: "anonymous_id"
+        type: anonymous_id
+        entity: unit
+        to_default_stitcher: true
+    source_metadata:
+      role: shopify
+      category: webhook
