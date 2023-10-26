@@ -55,7 +55,7 @@ models:
             description: Score produced by a churn prediction model based on all account behaviors
       features:
         - number_of_users
-        - contract_signed_date
+        - contract_start_date
         - plan_type
         - total_submitted_tickets
         - account_health
