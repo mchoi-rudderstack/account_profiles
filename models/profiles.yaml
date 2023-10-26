@@ -3,7 +3,7 @@ models:
     model_type: id_stitcher
     model_spec:
       validity_time: 24h # 1 day
-      entity_key: unit
+      entity_key: account
       edge_sources:
         - from: inputs/rsIdentifies
         - from: inputs/rsTicketsCreated
@@ -12,63 +12,51 @@ models:
     model_type: feature_table_model
     model_spec:
       validity_time: 24h # 1 day
-      entity_key: unit
-      macros:
-        - name: macro_datediff
-          inputs:
-            - column
-          value: "{% if !(end_time|isnil) %} datediff(day, date({{column}}), date('{{end_time.Format(\"2006-01-02 15:04:05\")}}')) {% else %} datediff(day, date({{column}}), GETDATE()) {% endif %}"
-        - name: macro_datediff_n
-          inputs:
-            - column
-            - number_of_days
-          value: "{% if !(end_time|isnil) %} datediff(day, date({{column}}), date('{{end_time.Format(\"2006-01-02 15:04:05\")}}')) <={{number_of_days}} {% else %} datediff(day, date({{column}}), GETDATE()) <= {{number_of_days}} {% endif %}"
+      entity_key: account
       vars:
         - entity_var:
-            name: unit_id
+            name: number_of_users
             from: inputs/rsIdentifies
-            select: first_value(unit_id)
+            select: first_value(number)
             window:
               order_by:
                 - timestamp desc
-            description: The ID of the leased unit
+            description: Number of users from this account
         - entity_var:
-            name: current_residents
+            name: contract_start_date
             from: inputs/rsIdentifies
-            select: array_agg(distinct email)
-            description: List of all current residents at this unit
+            select: afirst_value(contract_start_date)
+            description: The contract start date
         - entity_var:
-            name: lease_signed_date
+            name: products_used
             from: inputs/rsIdentifies
-            select: first_value(lease_signed_date)
-            window:
-              order_by:
-                - timestamp desc
-            description: The date when the unit signed a lease
+            select: array_agg(distinct products)
+            description: A list of products used by this account
         - entity_var:
-            name: unit_type
-            from: inputs/rsIdentifies
-            select: first_value(unit_type)
-            window:
-              order_by:
-                - timestamp desc
-            description: Type of unit
-        - entity_var:
-            name: available_amenities
-            from: inputs/rsIdentifies
-            select: first_value(available_amenities)
-            window:
-              order_by:
-                - timestamp desc
-            description: The amenities available with the unit
-        - entity_var:
-            name: total_tickets
+            name: total_submitted_tickets
             select: count(*)
             from: inputs/rsTicketsCreated
-            description: Total number of maintenance tickets submitted for the unit
+            description: Total number of support tickets submitted
+        - entity_var:
+            name: account_health
+            from: inputs/rsIdentifies
+            select: first_value(account_health)
+            window:
+              order_by:
+                - timestamp desc
+            description: The health of this account (red, yellow, green)
+        - entity_var:
+            name: churn_score
+            from: inputs/rsIdentifies
+            select: first_value(churn_score)
+            window:
+              order_by:
+                - timestamp desc
+            description: Score produced by a churn prediction model based on all account behaviors
       features:
-        - current_residents
-        - lease_signed_date
-        - unit_type
-        - available_amenities
-        - total_tickets
+        - number_of_users
+        - contract_signed_date
+        - plan_type
+        - total_submitted_tickets
+        - account_health
+        - churn_score
