@@ -17,10 +17,19 @@ entities:
     id_types:
       - account_id
       - group_id
+      - anonymous_id
       - email
 id_types:
   - name: account_id
   - name: group_id
+    filters:
+      - type: exclude
+        value: ""
+      - type: exclude
+        value: "unknown"
+      - type: exclude
+        value: "NaN"
+  - name: anonymous_id
     filters:
       - type: exclude
         value: ""
