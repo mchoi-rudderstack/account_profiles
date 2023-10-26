@@ -25,7 +25,7 @@ models:
         - entity_var:
             name: contract_start_date
             from: inputs/rsIdentifies
-            select: afirst_value(contract_start_date)
+            select: first_value(contract_start_date)
             description: The contract start date
         - entity_var:
             name: products_used
