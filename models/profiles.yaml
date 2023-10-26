@@ -56,7 +56,7 @@ models:
       features:
         - number_of_users
         - contract_start_date
-        - plan_type
+        - products_used
         - total_submitted_tickets
         - account_health
         - churn_score
