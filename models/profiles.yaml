@@ -26,6 +26,9 @@ models:
             name: contract_start_date
             from: inputs/rsIdentifies
             select: first_value(contract_start_date)
+            window:
+              order_by:
+                - timestamp desc
             description: The contract start date
         - entity_var:
             name: products_used
