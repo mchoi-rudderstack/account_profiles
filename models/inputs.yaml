@@ -4,49 +4,13 @@ inputs:
       table: DEMO_DB.ECOMM_DEMO.IDENTIFIES
     occurred_at_col: timestamp
     ids:
-      - select: "unit_id"
-        type: unit_id
-        entity: unit
+      - select: "account_id"
+        type: account_id
+        entity: account
         to_default_stitcher: true
-      - select: "anonymous_id"
-        type: anonymous_id
-        entity: unit
-        to_default_stitcher: true
-      - select: "lower(email)"
-        type: email
-        entity: unit
-        to_default_stitcher: true
-    source_metadata:
-      role: shopify
-      category: webhook
-  - name: rsTracks
-    app_defaults:
-      table: DEMO_DB.ECOMM_DEMO.TRACKS
-    occurred_at_col: timestamp
-    ids:
-      - select: "unit_id"
-        type: unit_id
-        entity: unit
-        to_default_stitcher: true
-      - select: "anonymous_id"
-        type: anonymous_id
-        entity: unit
-        to_default_stitcher: true
-    source_metadata:
-      role: shopify
-      category: webhook
-  - name: rsPages
-    app_defaults:
-      table: DEMO_DB.ECOMM_DEMO.PAGES
-    occurred_at_col: timestamp
-    ids:
-      - select: "unit_id"
-        type: unit_id
-        entity: unit
-        to_default_stitcher: true
-      - select: "anonymous_id"
-        type: anonymous_id
-        entity: unit
+      - select: "group_id"
+        type: group_id
+        entity: account
         to_default_stitcher: true
     source_metadata:
       role: shopify
@@ -57,12 +21,12 @@ inputs:
     occurred_at_col: timestamp
     ids:
       - select: "user_id"
-        type: unit_id
-        entity: unit
+        type: account_id
+        entity: account
         to_default_stitcher: true
       - select: "anonymous_id"
         type: anonymous_id
-        entity: unit
+        entity: account
         to_default_stitcher: true
     source_metadata:
       role: shopify
