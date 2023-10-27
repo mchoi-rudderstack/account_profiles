@@ -23,14 +23,6 @@ models:
                 - timestamp desc
             description: Number of users from this account
         - entity_var:
-            name: contract_start_date
-            from: inputs/rsIdentifies
-            select: first_value(contract_start_date)
-            window:
-              order_by:
-                - timestamp desc
-            description: The contract start date
-        - entity_var:
             name: products_used
             from: inputs/rsIdentifies
             select: array_agg(distinct products)
@@ -58,7 +50,6 @@ models:
             description: Score produced by a churn prediction model based on all account behaviors
       features:
         - number_of_users
-        - contract_start_date
         - products_used
         - total_submitted_tickets
         - account_health
