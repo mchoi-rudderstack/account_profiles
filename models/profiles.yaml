@@ -23,15 +23,21 @@ models:
                 - timestamp desc
             description: Number of users from this account
         - entity_var:
-            name: products_used
+            name: orders_completed_30_days
             from: inputs/rsIdentifies
-            select: array_agg(distinct products)
-            description: A list of products used by this account
+            select: first_value(orders_completed_30_days)
+            window:
+              order_by:
+                - timestamp desc
+            description: Total number of orders completed by the account in the last 30 days
         - entity_var:
-            name: total_submitted_tickets
-            select: count(*)
-            from: inputs/rsTicketsCreated
-            description: Total number of support tickets submitted
+            name: orders_completed_12_months
+            from: inputs/rsIdentifies
+            select: first_value(orders_completed_12_months)
+            window:
+              order_by:
+                - timestamp desc
+            description: Total number of orders completed by the account in the last 12 months
         - entity_var:
             name: account_health
             from: inputs/rsIdentifies
@@ -47,10 +53,28 @@ models:
             window:
               order_by:
                 - timestamp desc
-            description: Score produced by a churn prediction model based on all account behaviors
+            description: The predictive score of the account churning
+        - entity_var:
+            name: OPEN_TICKETS
+            from: inputs/rsIdentifies
+            select: first_value(OPEN_TICKETS)
+            window:
+              order_by:
+                - timestamp desc
+            description: Total number of support tickets currently open
+        - entity_var:
+            name: CLOSED_TICKETS
+            from: inputs/rsIdentifies
+            select: first_value(CLOSED_TICKETS)
+            window:
+              order_by:
+                - timestamp desc
+            description: Total number of support tickets closed
       features:
         - number_of_users
-        - products_used
-        - total_submitted_tickets
+        - orders_completed_30_days
+        - orders_completed_12_months
         - account_health
         - churn_score
+        - open_tickets
+        - closed_tickets
