@@ -55,17 +55,17 @@ models:
                 - timestamp desc
             description: The predictive score of the account churning
         - entity_var:
-            name: OPEN_TICKETS
+            name: open_tickets
             from: inputs/rsIdentifies
-            select: first_value(OPEN_TICKETS)
+            select: first_value(open_tickets)
             window:
               order_by:
                 - timestamp desc
             description: Total number of support tickets currently open
         - entity_var:
-            name: CLOSED_TICKETS
+            name: closed_tickets
             from: inputs/rsIdentifies
-            select: first_value(CLOSED_TICKETS)
+            select: first_value(closed_tickets)
             window:
               order_by:
                 - timestamp desc
