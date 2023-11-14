@@ -30,7 +30,7 @@ models:
         - entity_var:
             name: cars_towed_30_days
             from: inputs/rsIdentifies
-            select: first_value(patients_viewed_30_days)
+            select: first_value(cars_towed_30_days)
             window:
               order_by:
                 - timestamp desc
