@@ -22,22 +22,27 @@ models:
               order_by:
                 - timestamp desc
             description: Number of users from this account
+        - entity_car:
+            name: product_used
+            from: inputs/rsIdentifies
+            select: arrag_agg(distinct product_used)
+            description: All Autura products used by this account
         - entity_var:
-            name: patients_viewed_30_days
+            name: cars_towed_30_days
             from: inputs/rsIdentifies
             select: first_value(patients_viewed_30_days)
             window:
               order_by:
                 - timestamp desc
-            description: Total number of patients viewed by the account in the last 30 days
+            description: Total number of vehicles towed by the account in the last 30 days
         - entity_var:
-            name: patients_viewed_12_months
+            name: cars_towed_12_months
             from: inputs/rsIdentifies
-            select: first_value(patients_viewed_12_months)
+            select: first_value(cars_towed_12_months)
             window:
               order_by:
                 - timestamp desc
-            description: Total number of patients viewed by the account in the last 12 months
+            description: Total number of vehicles towed by the account in the last 12 months
         - entity_var:
             name: account_health
             from: inputs/rsIdentifies
@@ -72,7 +77,8 @@ models:
             description: Total number of support tickets closed
       features:
         - number_of_users
-        - patients_viewed_30_days
-        - patients_viewed_12_months
+        - product_used
+        - cars_towed_30_days
+        - cars_towed_12_months
         - account_health
         - churn_score
