@@ -76,5 +76,3 @@ models:
         - patients_viewed_12_months
         - account_health
         - churn_score
-        - open_tickets
-        - closed_tickets
