@@ -23,21 +23,21 @@ models:
                 - timestamp desc
             description: Number of users from this account
         - entity_var:
-            name: orders_completed_30_days
+            name: patients_viewed_30_days
             from: inputs/rsIdentifies
-            select: first_value(orders_completed_30_days)
+            select: first_value(patients_viewed_30_days)
             window:
               order_by:
                 - timestamp desc
-            description: Total number of orders completed by the account in the last 30 days
+            description: Total number of patients viewed by the account in the last 30 days
         - entity_var:
-            name: orders_completed_12_months
+            name: patients_viewed_12_months
             from: inputs/rsIdentifies
-            select: first_value(orders_completed_12_months)
+            select: first_value(patients_viewed_12_months)
             window:
               order_by:
                 - timestamp desc
-            description: Total number of orders completed by the account in the last 12 months
+            description: Total number of patients viewed by the account in the last 12 months
         - entity_var:
             name: account_health
             from: inputs/rsIdentifies
@@ -72,8 +72,8 @@ models:
             description: Total number of support tickets closed
       features:
         - number_of_users
-        - orders_completed_30_days
-        - orders_completed_12_months
+        - patients_viewed_30_days
+        - patients_viewed_12_months
         - account_health
         - churn_score
         - open_tickets
