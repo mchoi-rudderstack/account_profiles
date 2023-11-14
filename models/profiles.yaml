@@ -22,7 +22,7 @@ models:
               order_by:
                 - timestamp desc
             description: Number of users from this account
-        - entity_car:
+        - entity_var:
             name: product_used
             from: inputs/rsIdentifies
             select: arrag_agg(distinct product_used)
