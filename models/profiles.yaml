@@ -55,7 +55,7 @@ models:
                 - timestamp desc
             description: The Account Manager for this account
       features:
-        - completed_orders_90_days
+        - completed_orders_60_days
         - number_of_users
         - account_health
         - churn_score
