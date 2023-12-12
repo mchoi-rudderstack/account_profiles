@@ -15,34 +15,21 @@ models:
       entity_key: account
       vars:
         - entity_var:
+            name: completed_orders_60_days
+            from: inputs/rsIdentifies
+            select: first_value(completed_orders ignore nulls)
+            window:
+              order_by:
+                - timestamp desc
+            description: Total number of orders submitted by this account in the last 60 days
+        - entity_var:
             name: number_of_users
             from: inputs/rsIdentifies
             select: first_value(number)
             window:
               order_by:
                 - timestamp desc
-            description: Number of users from this account
-        - entity_var:
-            name: product_used
-            from: inputs/rsIdentifies
-            select: array_agg(distinct product_used)
-            description: All Autura products used by this account
-        - entity_var:
-            name: cars_towed_30_days
-            from: inputs/rsIdentifies
-            select: first_value(cars_towed_30_days)
-            window:
-              order_by:
-                - timestamp desc
-            description: Total number of vehicles towed by the account in the last 30 days
-        - entity_var:
-            name: cars_towed_12_months
-            from: inputs/rsIdentifies
-            select: first_value(cars_towed_12_months)
-            window:
-              order_by:
-                - timestamp desc
-            description: Total number of vehicles towed by the account in the last 12 months
+            description: Total number of users using ezCater
         - entity_var:
             name: account_health
             from: inputs/rsIdentifies
@@ -54,15 +41,22 @@ models:
         - entity_var:
             name: churn_score
             from: inputs/rsIdentifies
-            select: first_value(churn_score)
+            select: first_value(churn_score ignore nulls)
             window:
               order_by:
                 - timestamp desc
             description: The predictive score of the account churning
+        - entity_var:
+            name: ezcater_rep
+            from: inputs/rsIdentifies
+            select: first_value(ezcater_rep ignore nulls)
+            window:
+              order_by:
+                - timestamp desc
+            description: The Account Manager for this account
       features:
+        - completed_orders_90_days
         - number_of_users
-        - product_used
-        - cars_towed_30_days
-        - cars_towed_12_months
         - account_health
         - churn_score
+        - ezcater_rep
