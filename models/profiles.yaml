@@ -15,21 +15,13 @@ models:
       entity_key: account
       vars:
         - entity_var:
-            name: completed_orders_60_days
-            from: inputs/rsIdentifies
-            select: first_value(completed_orders ignore nulls)
-            window:
-              order_by:
-                - timestamp desc
-            description: Total number of orders submitted by this account in the last 60 days
-        - entity_var:
             name: number_of_users
             from: inputs/rsIdentifies
-            select: first_value(number)
+            select: first_value(number ignore nulls)
             window:
               order_by:
                 - timestamp desc
-            description: Total number of users using ezCater
+            description: Total number of users
         - entity_var:
             name: account_health
             from: inputs/rsIdentifies
@@ -46,17 +38,7 @@ models:
               order_by:
                 - timestamp desc
             description: The predictive score of the account churning
-        - entity_var:
-            name: ezcater_rep
-            from: inputs/rsIdentifies
-            select: first_value(ezcater_rep ignore nulls)
-            window:
-              order_by:
-                - timestamp desc
-            description: The Account Manager for this account
       features:
-        - completed_orders_60_days
         - number_of_users
         - account_health
         - churn_score
-        - ezcater_rep
