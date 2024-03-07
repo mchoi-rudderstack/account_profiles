@@ -25,10 +25,7 @@ models:
         - entity_var:
             name: account_health
             from: inputs/rsIdentifies
-            select: first_value(account_health)
-            window:
-              order_by:
-                - timestamp desc
+            select: max(array_construct('green','yellow','red')[ABS(MOD(Random(),3))]::text)
             description: The health of this account (red, yellow, green)
         - entity_var:
             name: propensity_to_churn
