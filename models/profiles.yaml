@@ -31,14 +31,29 @@ models:
                 - timestamp desc
             description: The health of this account (red, yellow, green)
         - entity_var:
-            name: churn_score
+            name: propensity_to_churn
             from: inputs/rsIdentifies
-            select: first_value(churn_score ignore nulls)
+            select: right(random(), 2)/100
+            description: The predictive score of the account churning
+        - entity_var:
+            name: number_of_open_roles
+            from: inputs/rsIdentifies
+            select: first_value(number_of_open_roles ignore nulls)
             window:
               order_by:
                 - timestamp desc
-            description: The predictive score of the account churning
+            description: Current number of open job reqs
+        - entity_var:
+            name: number_of_filled_roles
+            from: inputs/rsIdentifies
+            select: first_value(number_of_open_jobs ignore nulls)
+            window:
+              order_by:
+                - timestamp desc
+            description: Total number of roles filled
       features:
         - number_of_users
         - account_health
-        - churn_score
+        - propensity_to_churn
+        - number_of_open_roles
+        - number_of_filled_roles
