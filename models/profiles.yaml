@@ -30,7 +30,7 @@ models:
         - entity_var:
             name: propensity_to_churn
             from: inputs/rsIdentifies
-            select: case when {{account.Var(\"account_health\")}} = 'red' then 1 else 0 end
+            select: round(right(random(), 1)/10)
             description: The predictive score of the account churning
         - entity_var:
             name: number_of_open_roles
@@ -47,6 +47,16 @@ models:
             from: inputs/rsIdentifies
             select: uniform(10, 200, random())
             description: Total number of sessions
+        - entity_var:
+            name: number_of_reviews
+            from: inputs/rsIdentifies
+            select: uniform(1, 200, random())
+            description: Total number of reviews submitted
+        - entity_var:
+            name: current_company_rating
+            from: inputs/rsIdentifies
+            select: uniform(2, 5, random())
+            description: Total number of sessions
       features:
         - number_of_users
         - account_health
@@ -54,3 +64,5 @@ models:
         - number_of_open_roles
         - number_of_filled_roles
         - total_sessions
+        - number_of_reviews
+        - current_company_rating
