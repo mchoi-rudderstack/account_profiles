@@ -35,18 +35,12 @@ models:
         - entity_var:
             name: number_of_open_roles
             from: inputs/rsIdentifies
-            select: first_value(number_of_open_roles ignore nulls)
-            window:
-              order_by:
-                - timestamp desc
+            select: uniform(0, 15, random())
             description: Current number of open job reqs
         - entity_var:
             name: number_of_filled_roles
             from: inputs/rsIdentifies
-            select: first_value(number_of_filled_roles ignore nulls)
-            window:
-              order_by:
-                - timestamp desc
+            select: uniform(0, 100, random())
             description: Total number of roles filled
         - entity_var:
             name: total_sessions
