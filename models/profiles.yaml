@@ -30,7 +30,7 @@ models:
         - entity_var:
             name: propensity_to_churn
             from: inputs/rsIdentifies
-            select: right(random(), 2)/100
+            select: case when {{user.Var("account_health")}} = "red" then 1 else 0 end
             description: The predictive score of the account churning
         - entity_var:
             name: number_of_open_roles
