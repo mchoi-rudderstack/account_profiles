@@ -43,14 +43,20 @@ models:
         - entity_var:
             name: number_of_filled_roles
             from: inputs/rsIdentifies
-            select: first_value(number_of_open_jobs ignore nulls)
+            select: first_value(number_of_filled_roles ignore nulls)
             window:
               order_by:
                 - timestamp desc
             description: Total number of roles filled
+        - entity_var:
+            name: total_sessions
+            from: inputs/rsIdentifies
+            select: uniform(10, 200, random())
+            description: Total number of sessions
       features:
         - number_of_users
         - account_health
         - propensity_to_churn
         - number_of_open_roles
         - number_of_filled_roles
+        - total_sessions
